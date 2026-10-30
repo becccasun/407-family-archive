@@ -1,5 +1,5 @@
 /* ==========================================================================
-   The Family Archive — Archival & Monochromatic
+   The Family Archive: Archival & Monochromatic
    Tokens match the shared Figma spec. Flat, square, hairline rules.
    ========================================================================== */
 
@@ -21,7 +21,7 @@
   --paper-50: #F6F3EC;
   --paper-100: #EDE7DA;
   --paper-200: #E0D7C4;
-  /* Red — errors + sold-out stamp only */
+  /* Red: errors + sold-out stamp only */
   --red-600: #B3261E;
   --red-50: #FBEAE8;
 
@@ -40,14 +40,13 @@
 
   /* Type */
   --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
-  --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --fs-h1: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);   /* 36 → 56 */
   --fs-h2: clamp(1.875rem, 1.5rem + 1.6vw, 2.75rem); /* 30 → 44 */
   --fs-h3: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);      /* 24 → 32 */
   --fs-h4: clamp(1.25rem, 1.15rem + 0.35vw, 1.5rem); /* 20 → 24 */
-  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem); /* 16 → 18 */
-  --fs-small: 0.875rem;
+  --fs-body: clamp(1.0625rem, 1.03rem + 0.12vw, 1.125rem); /* 17 → 18 */
+  --fs-small: 0.9375rem; /* 15 */
   --fs-mono: 0.8125rem;
   --fs-mono-sm: 0.75rem;
 
@@ -67,9 +66,9 @@ body {
   margin: 0;
   background: var(--bg-page);
   color: var(--text-body);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: var(--fs-body);
-  line-height: 1.5;
+  line-height: 1.55;
   overflow-x: hidden;
 }
 body.drawer-open, body.sheet-open { overflow: hidden; }
@@ -224,7 +223,7 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 .icon-btn svg { width: 18px; height: 18px; }
 .count-badge {
   display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 5px;
-  background: var(--grey-950); color: var(--paper-50); font-size: 0.6875rem;
+  background: var(--grey-950); color: var(--paper-50); font-family: var(--font-mono); font-size: 0.6875rem;
 }
 
 .nav-drawer {
@@ -349,7 +348,7 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
   padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--rule);
 }
 .option__dot { width: 18px; height: 18px; border: 1px solid var(--border); border-radius: 50%; display: grid; place-content: center; grid-row: span 2; }
-.option__name { font-weight: 600; color: var(--text-title); }
+.option__name { font-weight: 500; color: var(--text-title); }
 .option__detail { grid-column: 2; font-size: var(--fs-small); color: var(--text-muted); }
 .option__price { font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--text-title); grid-row: 1 / span 2; grid-column: 3; }
 .option input:checked + .option__box { border-color: var(--border); box-shadow: inset 0 0 0 1px var(--border); }
@@ -584,7 +583,7 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 .totals dt { color: var(--text-body); }
 .totals dd { margin: 0; font-family: var(--font-mono); color: var(--text-title); text-align: right; }
 .totals .grand { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
-.totals .grand dt { font-weight: 600; color: var(--text-title); }
+.totals .grand dt { font-weight: 500; color: var(--text-title); }
 .totals .grand dd { font-size: 1.125rem; font-weight: 500; }
 .promo-row { display: flex; }
 .promo-row .input { border-right: 0; min-width: 0; }

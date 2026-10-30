@@ -13,7 +13,7 @@ Plain HTML, CSS and vanilla JS, no build step. The cart is kept in `localStorage
 | `product.html?id=FA-K01` | Product detail for any catalog number. Size option cards, qty stepper, accordion |
 | `cart.html` | Qty edit / remove, promo code (`ARCHIVE10`), totals |
 | `checkout.html` | One-page checkout (contact, shipping, payment) with inline validation, then confirmation |
-| `404.html` | "No. 404 — Misfiled." |
+| `404.html` | "No. 404: Misfiled." |
 
 Tip: on an empty cart, use **Load the sample order** to get the Figma cart (Starter Kit Medium + Shoebox Scan = $248.04).
 

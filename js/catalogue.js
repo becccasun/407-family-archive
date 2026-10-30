@@ -106,8 +106,8 @@
     }).join('') + (c.length > 1 ? '<button type="button" class="btn btn--tertiary" data-clear>Clear all</button>' : '');
     chips.hidden = c.length === 0;
 
-    var title = state.cat.length === 1 ? catName[state.cat[0]] + ' — Catalogue' : 'Catalogue';
-    document.title = title + ' — The Family Archive';
+    var title = state.cat.length === 1 ? catName[state.cat[0]] + ' · Catalogue' : 'Catalogue';
+    document.title = title + ' · The Family Archive';
     writeURL();
   }
 

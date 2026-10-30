@@ -1,4 +1,4 @@
-/* The Family Archive — cart store + shared UI (header, drawer, cards, footer). */
+/* The Family Archive: cart store + shared UI (header, drawer, cards, footer). */
 (function () {
   var FA = window.FA = window.FA || {};
   FA.base = document.documentElement.getAttribute('data-base') || '';
@@ -17,7 +17,7 @@
   }
 
   /* ---------- cart ---------- */
-  var PROMOS = { ARCHIVE10: { label: 'ARCHIVE10 — 10% off', rate: 0.10 } };
+  var PROMOS = { ARCHIVE10: { label: 'ARCHIVE10 · 10% off', rate: 0.10 } };
   var TAX_RATE = 0.06;
 
   function itemPrice(line) {

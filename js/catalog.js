@@ -1,4 +1,4 @@
-/* The Family Archive — shared catalog data (used by every page). */
+/* The Family Archive: shared catalog data (used by every page). */
 (function () {
   var IMG = 'assets/img/';
   var IMAGES = {
@@ -49,7 +49,7 @@
       pairs: ['FA-K01', 'FA-S01', 'FA-S03'] },
     { id: 'FA-S01', name: 'Family Album Box', category: 'Storage', type: 'Product', price: 120,
       images: ['album', 'hands'],
-      blurb: 'A clamshell box with 10 interleaved album pages. Holds about 400 prints flat — no glue, no sticky pages.',
+      blurb: 'A clamshell box with 10 interleaved album pages. Holds about 400 prints flat. No glue, no sticky pages.',
       includes: ['Clamshell box', '10 album pages', 'Interleaving tissue'],
       specs: [['Holds', 'About 400 prints'], ['Materials', 'Acid-free, lignin-free board'], ['Ships', 'In 2–3 days']],
       pairs: ['FA-K03', 'FA-K01', 'FA-B01'] },
@@ -61,7 +61,7 @@
       pairs: ['FA-P02', 'FA-K03', 'FA-S03'] },
     { id: 'FA-S03', name: 'Document Archive Box', category: 'Storage', type: 'Product', price: 42, isNew: true,
       images: ['cabinet', 'letters'],
-      blurb: 'A letter-size, lignin-free box with 25 folders. For deeds, letters, report cards — the papers that matter.',
+      blurb: 'A letter-size, lignin-free box with 25 folders. For the papers that matter: deeds, letters, report cards.',
       includes: ['Letter-size archive box', '25 acid-free folders', 'Label set'],
       specs: [['Size', 'Letter, 15×12×5 in'], ['Materials', 'Lignin-free board'], ['Ships', 'In 2–3 days']],
       pairs: ['FA-D02', 'FA-K03', 'FA-K01'] },
