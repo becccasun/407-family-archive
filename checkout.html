@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — The Family Archive</title>
+<meta name="description" content="Checkout.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23121212'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='13' fill='%23F6F3EC' text-anchor='middle'%3EFA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/catalog.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/summary.js" defer></script>
+<script src="js/checkout.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="index.html"><span class="logo__mark" aria-hidden="true">FA</span><span class="logo__name">The Family Archive</span></a>
+    <nav class="nav-primary" aria-label="Primary"><ul class="nav-links"><li><a href="catalogue.html?cat=kits">Kits</a></li><li><a href="catalogue.html?cat=scanning">Scanning</a></li><li><a href="catalogue.html?cat=storage">Storage</a></li><li><a href="catalogue.html?cat=digitizing">Digitizing</a></li><li><a href="catalogue.html?cat=family-books">Family Books</a></li></ul></nav>
+    <div class="nav-actions">
+      <a class="nav-cart nav-cart--desk" href="cart.html" data-cart-label>Cart (<span data-cart-count>0</span>)</a>
+      <a class="btn btn--primary btn--sm nav-cta" href="product.html?id=FA-K01">Start your archive</a>
+      <a class="icon-btn nav-cart--mob" href="cart.html" data-cart-label aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M4 8h16l-1 13H5L4 8z"/><path d="M8.5 8V6a3.5 3.5 0 0 1 7 0v2"/></svg><span class="count-badge" data-cart-count>0</span></a>
+      <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer"><span class="nav-toggle__label">Menu</span></button>
+    </div>
+  </div>
+  <div id="nav-drawer" class="nav-drawer" hidden>
+    <nav class="container" aria-label="Mobile">
+      <ul><li><a href="catalogue.html?cat=kits"><span>Kits</span><span class="catno">No. 01</span></a></li><li><a href="catalogue.html?cat=scanning"><span>Scanning</span><span class="catno">No. 02</span></a></li><li><a href="catalogue.html?cat=storage"><span>Storage</span><span class="catno">No. 03</span></a></li><li><a href="catalogue.html?cat=digitizing"><span>Digitizing</span><span class="catno">No. 04</span></a></li><li><a href="catalogue.html?cat=family-books"><span>Family Books</span><span class="catno">No. 05</span></a></li><li><a href="catalogue.html"><span>Full catalogue</span><span class="catno">All</span></a></li></ul>
+      <div class="nav-drawer__foot">
+        <a class="btn btn--primary btn--block" href="product.html?id=FA-K01">Start your archive</a>
+        <a class="btn btn--secondary btn--block" href="cart.html" data-cart-label><span>Cart (<span data-cart-count>0</span>)</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+<div id="fa-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+<main id="main" tabindex="-1">
+<div id="checkout-view">
+  <button class="summary-toggle" type="button" aria-expanded="false" aria-controls="summary-mobile">
+    <span><span class="toggle-text">Show order summary</span> <span class="sign" aria-hidden="true">&#9662;</span></span>
+    <span class="summary-toggle__total" data-total>$0.00</span>
+  </button>
+  <div id="summary-mobile" class="summary-mobile" hidden></div>
+  <div class="container">
+    <div class="page-head">
+      <nav aria-label="Checkout progress"><ol class="progress" id="progress"><li><a href="cart.html">Cart</a></li><li aria-current="step">Checkout</li><li>Confirmation</li></ol></nav>
+      <h1 class="mt-lg">Checkout</h1>
+    </div>
+    <div class="checkout-layout">
+      <form id="checkout-form" novalidate>
+        <div id="error-summary" class="error-summary" tabindex="-1" hidden>
+          <h2>A few things need fixing</h2>
+          <ul></ul>
+        </div>
+
+        <section class="co-section" aria-labelledby="sec-contact">
+          <h2 id="sec-contact"><span class="catno">1</span> Contact</h2>
+          <div class="form-grid">
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-hint email-error">
+              <p class="hint" id="email-hint">We&rsquo;ll send your receipt and scan-progress updates here.</p>
+              <p class="field-error" id="email-error"></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="co-section" aria-labelledby="sec-shipping">
+          <h2 id="sec-shipping"><span class="catno">2</span> Shipping</h2>
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input class="input" id="name" name="name" autocomplete="name" required aria-describedby="name-error">
+              <p class="field-error" id="name-error"></p>
+            </div>
+            <div class="field">
+              <label for="street">Street address</label>
+              <input class="input" id="street" name="street" autocomplete="address-line1" required aria-describedby="street-error">
+              <p class="field-error" id="street-error"></p>
+            </div>
+            <div class="field">
+              <label for="apt">Apt, suite, unit <span class="optional">(optional)</span></label>
+              <input class="input" id="apt" name="apt" autocomplete="address-line2">
+            </div>
+            <div class="form-row form-row--3">
+              <div class="field">
+                <label for="city">City</label>
+                <input class="input" id="city" name="city" autocomplete="address-level2" required aria-describedby="city-error">
+                <p class="field-error" id="city-error"></p>
+              </div>
+              <div class="field">
+                <label for="state">State</label>
+                <select class="select" id="state" name="state" autocomplete="address-level1" required aria-describedby="state-error"><option value="">Select</option><option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option><option>DC</option><option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option></select>
+                <p class="field-error" id="state-error"></p>
+              </div>
+              <div class="field">
+                <label for="zip">ZIP</label>
+                <input class="input" id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" required aria-describedby="zip-error">
+                <p class="field-error" id="zip-error"></p>
+              </div>
+            </div>
+            <fieldset>
+              <legend class="label">Shipping method</legend>
+              <div class="options" style="margin-top:8px">
+                <label class="option"><input type="radio" name="ship" value="standard" checked><span class="option__box"><span class="option__dot" aria-hidden="true"></span><span class="option__name">Standard &mdash; insured</span><span class="option__detail">5&ndash;7 business days &middot; prepaid return label</span><span class="option__price">Free</span></span></label>
+                <label class="option"><input type="radio" name="ship" value="express"><span class="option__box"><span class="option__dot" aria-hidden="true"></span><span class="option__name">Express &mdash; insured</span><span class="option__detail">2 business days</span><span class="option__price">$12.00</span></span></label>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+
+        <section class="co-section" aria-labelledby="sec-payment">
+          <h2 id="sec-payment"><span class="catno">3</span> Payment</h2>
+          <div class="form-grid">
+            <div class="field">
+              <label for="card">Card number</label>
+              <input class="input" id="card" name="card" inputmode="numeric" autocomplete="cc-number" maxlength="23" placeholder="1234 5678 9012 3456" required aria-describedby="card-error">
+              <p class="field-error" id="card-error"></p>
+            </div>
+            <div class="field">
+              <label for="ccname">Name on card</label>
+              <input class="input" id="ccname" name="ccname" autocomplete="cc-name" required aria-describedby="ccname-error">
+              <p class="field-error" id="ccname-error"></p>
+            </div>
+            <div class="form-row form-row--2m">
+              <div class="field">
+                <label for="exp">Expiry <span class="optional">(MM/YY)</span></label>
+                <input class="input" id="exp" name="exp" inputmode="numeric" autocomplete="cc-exp" maxlength="5" placeholder="MM/YY" required aria-describedby="exp-error">
+                <p class="field-error" id="exp-error"></p>
+              </div>
+              <div class="field">
+                <label for="cvc">CVC</label>
+                <input class="input" id="cvc" name="cvc" inputmode="numeric" autocomplete="cc-csc" maxlength="4" required aria-describedby="cvc-error">
+                <p class="field-error" id="cvc-error"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <button class="btn btn--primary btn--block" type="submit" id="pay-btn"><span>Pay <span data-total>$0.00</span> &rarr;</span></button>
+        <p class="pay-note"><span aria-hidden="true">&#9632;</span> Payments are encrypted. Your originals are insured up to $1,000 each way.</p>
+      </form>
+      <aside class="checkout-aside" aria-labelledby="summary-title">
+        <div class="summary" id="summary-desktop"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+<div id="empty-view" class="container" hidden>
+  <div class="page-head"><h1>Checkout</h1></div>
+  <div class="empty" style="margin-bottom:var(--section-y)">
+    <h2 class="h3">Your drawer is empty.</h2>
+    <p class="muted">Add something before checking out.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn--primary" href="catalogue.html">Browse the catalogue</a>
+      <button class="btn btn--secondary" type="button" data-load-sample>Load the sample order</button>
+    </div>
+  </div>
+</div>
+<div id="confirm-view" class="container" hidden>
+  <div class="page-head" style="padding-bottom:0">
+    <nav aria-label="Checkout progress"><ol class="progress"><li>Cart</li><li>Checkout</li><li aria-current="step">Confirmation</li></ol></nav>
+  </div>
+  <div class="confirm">
+    <div class="confirm__card">
+      <p class="eyebrow"><span class="index">Order No. FA-24117</span> Received</p>
+      <h1 id="confirm-title" tabindex="-1">Order No. <span style="white-space:nowrap">FA-24117</span> is filed.</h1>
+      <p>A receipt is on its way to <strong id="confirm-email"></strong>. Total charged: <span class="price" id="confirm-total"></span>.</p>
+      <dl class="totals" id="confirm-ship"></dl>
+      <div class="btn-row"><a class="btn btn--primary" href="index.html">Back to home</a><a class="btn btn--secondary" href="catalogue.html">Keep browsing</a></div>
+    </div>
+    <section aria-labelledby="next-title">
+      <h2 id="next-title" class="h3" style="margin-bottom:20px">What happens next</h2>
+      <ol class="timeline">
+        <li class="is-done"><span class="no">01</span><span class="when">In 2&ndash;3 days</span><h3>Kit ships</h3><p>Sleeves, boxes, labels, and your prepaid return box.</p></li>
+        <li><span class="no">02</span><span class="when">When you&rsquo;re ready</span><h3>Pack &amp; send</h3><p>Fill the box, tape it, drop it at any UPS. It&rsquo;s insured.</p></li>
+        <li><span class="no">03</span><span class="when">About 3 weeks</span><h3>Scanning</h3><p>We scan, clean up, and file everything. You&rsquo;ll get email updates.</p></li>
+        <li><span class="no">04</span><span class="when">After that</span><h3>Archive delivered</h3><p>Online gallery, USB drive, and your originals back.</p></li>
+      </ol>
+    </section>
+  </div>
+</div>
+</main>
+<footer class="site-footer inverse">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="newsletter">
+        <h2>One letter a month.</h2>
+        <p>Archiving tips, new services, and the odd photo someone found in their attic. Unsubscribe whenever.</p>
+        <form id="newsletter" novalidate>
+          <label for="newsletter-email">Email address</label>
+          <div class="newsletter__row">
+            <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" aria-describedby="newsletter-error newsletter-ok">
+            <button class="btn btn--primary" type="submit">Sign up</button>
+          </div>
+          <p id="newsletter-error" class="field-error" aria-live="polite"></p>
+          <p id="newsletter-ok" class="field-ok" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="footer-cols">
+        <div><h3>Shop</h3><ul><li><a href="catalogue.html?cat=kits">Kits</a></li><li><a href="catalogue.html?cat=scanning">Scanning</a></li><li><a href="catalogue.html?cat=storage">Storage</a></li><li><a href="catalogue.html?cat=digitizing">Digitizing</a></li><li><a href="catalogue.html?cat=family-books">Family Books</a></li><li><a href="catalogue.html">All items</a></li></ul></div>
+        <div><h3>Help</h3><ul><li><a href="index.html#how">How it works</a></li><li><a href="product.html?id=FA-K01#details">Shipping &amp; returns</a></li><li><a href="cart.html">Your cart</a></li><li><a href="checkout.html">Checkout</a></li></ul></div>
+        <div><h3>Archive</h3><ul><li><a href="index.html#offers">Current offers</a></li><li><a href="assets/img/credits.json">Photo credits</a></li><li><a href="misfiled.html">A missing page</a></li></ul></div>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; 2026 The Family Archive &middot; Ann Arbor, MI</span>
+      <span>SI 407 prototype by Rebecca Sun &middot; Photos via Unsplash</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
