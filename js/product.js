@@ -60,17 +60,17 @@
           (p.images.length > 1 ? '<ul class="thumbs" aria-label="Product images">' + thumbs + '</ul>' : '') +
         '</div>' +
         '<form class="pdp__info" id="buy-form" novalidate>' +
-          '<div class="pdp__meta"><span class="catno">' + p.id + '</span><span class="tag">' + FA.esc(p.category) + '</span><span class="tag">' + p.type + '</span>' +
-            (p.isNew ? '<span class="tag tag--solid">New</span>' : '') + (p.soldOut ? '<span class="tag" style="color:var(--red-600);border-color:var(--red-600)">Sold out</span>' : '') + '</div>' +
-          '<h1>' + FA.esc(p.name) + '</h1>' +
+          '<div class="pdp__head"><h1>' + FA.esc(p.name) + '</h1>' +
           '<p class="pdp__price"><span data-unit-price>' + FA.moneyShort(startPrice) + '</span>' + (p.id === 'FA-D01' ? '<small>per tape</small>' : '') + '</p>' +
+          '<div class="pdp__meta"><span class="catno">' + p.id + '</span><span class="tag">' + FA.esc(p.category) + '</span><span class="tag">' + p.type + '</span>' +
+            (p.isNew ? '<span class="tag tag--solid">New</span>' : '') + (p.soldOut ? '<span class="tag" style="color:var(--red-600);border-color:var(--red-600)">Sold out</span>' : '') + '</div></div>' +
           '<p class="lede">' + FA.esc(p.blurb) + '</p>' +
           sizes + buy + specs +
           '<div class="accordion" id="details">' + acc + '</div>' +
         '</form>' +
       '</div>' +
       '<section class="section section--rule" aria-labelledby="pairs-title" style="padding-top:clamp(32px,4vw,64px)">' +
-        '<div class="section-head"><div><p class="eyebrow"><span class="index">See also</span> Cross-reference</p><h2 id="pairs-title">Pairs well with</h2></div></div>' +
+        '<div class="section-head"><h2 id="pairs-title">Pairs well with</h2></div>' +
         '<div class="card-grid card-grid--3">' + p.pairs.map(function (id) { return FA.card(FA.getProduct(id)); }).join('') + '</div>' +
       '</section>' +
       (p.soldOut ? '' : '<div class="mobile-buy" id="mobile-buy" aria-hidden="true"><span class="pdp__price" data-line-price>' + FA.moneyShort(startPrice) + '</span><button class="btn btn--primary" type="button" tabindex="-1" id="mobile-add">Add to cart</button></div>');
@@ -141,7 +141,7 @@
     if (!p) {
       document.title = 'Misfiled · The Family Archive';
       document.getElementById('pdp-root').innerHTML =
-        '<div class="page-head"><p class="eyebrow"><span class="index">No. ' + FA.esc(id) + '</span> Not found</p><h1>That catalog number is misfiled.</h1>' +
+        '<div class="page-head"><h1>That catalog number is misfiled.</h1>' +
         '<p class="lede" style="margin:16px 0 24px">We don’t have an item filed as “' + FA.esc(id) + '”. Numbers look like FA-K01.</p>' +
         '<div class="btn-row"><a class="btn btn--primary" href="catalogue.html">Browse the catalogue</a><a class="btn btn--secondary" href="index.html">Back to home</a></div></div>';
       return;

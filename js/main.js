@@ -117,13 +117,12 @@
     var badge = p.isNew ? '<span class="tag tag--solid">New</span>' : (p.featured ? '<span class="tag">Featured</span>' : '');
     var H = opts.heading || 'h3';
     return '<article class="card' + (p.soldOut ? ' card--soldout' : '') + '">' +
-      '<div class="card__top"><span class="catno">' + p.id + '</span>' + badge + '</div>' +
-      '<div class="card__media">' + FA.img(p.images[0]) + (p.soldOut ? '<span class="stamp" aria-hidden="true">Sold out</span>' : '') + '</div>' +
+      '<div class="card__media">' + FA.img(p.images[0]) + (badge ? '<span class="card__badge">' + badge + '</span>' : '') + (p.soldOut ? '<span class="stamp" aria-hidden="true">Sold out</span>' : '') + '</div>' +
       '<div class="card__body">' +
-        '<p class="card__cat">' + FA.esc(p.category) + ' · ' + p.type + '</p>' +
         '<' + H + ' class="card__title"><a class="card__link" href="' + href + '">' + FA.esc(p.name) + '</a></' + H + '>' +
+        '<p class="card__meta"><span class="price">' + from + (p.soldOut ? '<span class="sr-only"> (sold out)</span>' : '') + '</span> · <span class="catno">' + p.id + '</span></p>' +
       '</div>' +
-      '<div class="card__foot"><span class="price">' + from + (p.soldOut ? '<span class="sr-only"> (sold out)</span>' : '') + '</span>' + action + '</div>' +
+      '<div class="card__foot">' + action + '</div>' +
     '</article>';
   };
 

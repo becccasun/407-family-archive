@@ -18,9 +18,9 @@
       var nm = FA.esc(p.name) + (size ? ', ' + size : '');
       return '<li class="line" data-key="' + l.key + '">' +
         '<a class="line__img" href="product.html?id=' + p.id + '" tabindex="-1" aria-hidden="true">' + FA.img(p.images[0], { decorative: true }) + '</a>' +
-        '<div class="line__info"><span class="catno">' + p.id + '</span>' +
+        '<div class="line__info">' +
           '<h3 class="line__name"><a href="product.html?id=' + p.id + '">' + FA.esc(p.name) + '</a></h3>' +
-          '<p class="line__opt">' + (size ? 'Size: ' + size + ' · ' : '') + p.type + ' · ' + FA.money(unit) + ' each</p></div>' +
+          '<p class="line__opt">' + (size ? 'Size: ' + size + ' · ' : '') + p.type + ' · ' + FA.money(unit) + ' each · <span class="catno">' + p.id + '</span></p></div>' +
         '<div class="line__controls">' +
           '<div class="stepper stepper--sm" role="group" aria-label="Quantity for ' + nm + '">' +
             '<button type="button" data-qty="-1" aria-label="Decrease quantity of ' + nm + '"' + (l.qty <= 1 ? ' disabled' : '') + '>−</button>' +
