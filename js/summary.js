@@ -11,7 +11,7 @@
       list = '<ul class="summary-items">' + items.map(function (l) {
         var p = FA.getProduct(l.id), size = FA.cart.sizeLabel(l);
         return '<li><span class="line__img">' + FA.img(p.images[0], { decorative: true }) + '<span class="qty-badge" aria-hidden="true">' + l.qty + '</span></span>' +
-          '<span class="nm">' + FA.esc(p.name) + '<span>' + p.id + (size ? ' · ' + size : '') + ' · Qty ' + l.qty + '</span></span>' +
+          '<span class="nm">' + FA.esc(p.name) + '<span>' + (size ? size + ' · ' : '') + 'Qty ' + l.qty + '</span></span>' +
           '<span class="pr">' + FA.money(FA.cart.price(l) * l.qty) + '</span></li>';
       }).join('') + '</ul><hr>';
     }

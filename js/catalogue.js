@@ -6,7 +6,7 @@
     '50-100': { label: '$50–$100', test: function (p) { return p.price >= 50 && p.price <= 100; } },
     'over-100': { label: 'Over $100', test: function (p) { return p.price > 100; } }
   };
-  var SORTS = { featured: 'Featured', 'price-asc': 'Price, low to high', 'price-desc': 'Price, high to low', catno: 'Catalog no.' };
+  var SORTS = { featured: 'Featured', 'price-asc': 'Price, low to high', 'price-desc': 'Price, high to low' };
   var catName = {}; FA.CATEGORIES.forEach(function (c) { catName[FA.slug(c)] = c; });
 
   var state = { cat: [], type: [], price: [], stock: false, sort: 'featured', q: '' };
@@ -39,7 +39,7 @@
     if (skip !== 'price' && state.price.length && !state.price.some(function (k) { return PRICE[k].test(p); })) return false;
     if (skip !== 'stock' && state.stock && p.soldOut) return false;
     if (state.q) {
-      var hay = (p.id + ' ' + p.name + ' ' + p.category + ' ' + p.type + ' ' + p.blurb).toLowerCase();
+      var hay = (p.name + ' ' + p.category + ' ' + p.type + ' ' + p.blurb).toLowerCase();
       var ok = state.q.toLowerCase().split(/\s+/).every(function (w) { return hay.indexOf(w) >= 0; });
       if (!ok) return false;
     }
@@ -49,7 +49,6 @@
     var l = list.slice();
     if (state.sort === 'price-asc') l.sort(function (a, b) { return a.price - b.price || a.order - b.order; });
     else if (state.sort === 'price-desc') l.sort(function (a, b) { return b.price - a.price || a.order - b.order; });
-    else if (state.sort === 'catno') l.sort(function (a, b) { return a.id < b.id ? -1 : 1; });
     else l.sort(function (a, b) { return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || a.order - b.order; });
     return l;
   }
@@ -67,7 +66,7 @@
     document.getElementById('q').value = state.q;
   }
 
-  function setCount(sel, n) { var el = document.querySelector('[data-count="' + sel + '"]'); if (el) el.textContent = n; }
+  function setCount(sel, n) { var el = document.querySelector('[data-count="' + sel + '"]'); if (el) el.textContent = /^(tab:|all$)/.test(sel) ? '(' + n + ')' : n; }
 
   function render() {
     var list = sorted(FA.PRODUCTS.filter(function (p) { return matches(p); }));
@@ -102,7 +101,7 @@
     state.price.forEach(function (v) { c.push(['price', v, PRICE[v].label]); });
     if (state.stock) c.push(['stock', '', 'In stock only']);
     chips.innerHTML = c.map(function (x) {
-      return '<button type="button" class="chip" data-chip="' + x[0] + '" data-val="' + FA.esc(x[1]) + '">' + FA.esc(x[2]) + ' <span aria-hidden="true">✕</span><span class="sr-only">, remove filter</span></button>';
+      return '<button type="button" class="chip" data-chip="' + x[0] + '" data-val="' + FA.esc(x[1]) + '">' + FA.esc(x[2]) + FA.icon('close', 'icon icon--sm') + '<span class="sr-only">, remove filter</span></button>';
     }).join('') + (c.length > 1 ? '<button type="button" class="btn btn--tertiary" data-clear>Clear all</button>' : '');
     chips.hidden = c.length === 0;
 

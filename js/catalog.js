@@ -24,7 +24,7 @@
   var SHIPPING_COPY = 'Kits ship in 2–3 business days. Services include an insured, prepaid box both ways. Unopened kits can be returned within 30 days.';
 
   var PRODUCTS = [
-    { id: 'FA-K01', name: 'Starter Archival Kit', category: 'Kits', type: 'Product', price: 50, featured: true,
+    { id: 'starter-archival-kit', slug: 'starter-archival-kit', name: 'Starter Archival Kit', category: 'Kits', type: 'Product', price: 50, featured: true,
       images: ['shoebox', 'scattered', 'envelopes'],
       blurb: 'Everything you need to sort a shoebox of photos and papers before they go anywhere. Acid-free, lignin-free, and sized to how much you’ve got.',
       sizes: [
@@ -34,83 +34,85 @@
       ],
       includes: ['100 acid-free sleeves', '2 archival boxes', 'Pencil + labels', 'Inventory sheet', 'Prepaid insured return box (if adding scanning)'],
       specs: [['Materials', 'Acid-free, lignin-free board'], ['Tested', 'PAT-tested (Photographic Activity Test)'], ['Ships', 'In 2–3 days']],
-      pairs: ['FA-P01', 'FA-S01', 'FA-K03'] },
-    { id: 'FA-K02', name: 'Heirloom Gift Kit', category: 'Kits', type: 'Product', price: 85,
+      pairs: ['shoebox-scan', 'family-album-box', 'photo-sleeve-pack'] },
+    { id: 'heirloom-gift-kit', slug: 'heirloom-gift-kit', name: 'Heirloom Gift Kit', category: 'Kits', type: 'Product', price: 85,
       images: ['hands', 'album'],
       blurb: 'The starter kit in a cloth-covered box, with a card that explains how it all works. For the relative who has all the photos.',
       includes: ['Everything in the Starter Kit (Medium)', 'Cloth-covered keepsake box', 'Gift card with instructions'],
       specs: [['Materials', 'Acid-free, lignin-free board'], ['Ships', 'In 2–3 days, gift-wrapped']],
-      pairs: ['FA-K01', 'FA-B01', 'FA-P01'] },
-    { id: 'FA-K03', name: 'Photo Sleeve Pack (100)', category: 'Storage', type: 'Product', price: 18,
+      pairs: ['starter-archival-kit', 'family-history-book', 'shoebox-scan'] },
+    { id: 'photo-sleeve-pack', slug: 'photo-sleeve-pack', name: 'Photo Sleeve Pack (100)', category: 'Storage', type: 'Product', price: 18,
       images: ['scattered', 'shoebox'],
       blurb: '100 acid-free sleeves for 4×6 and 5×7 prints. Slide them in, write on the label strip, done.',
       includes: ['100 polypropylene sleeves', 'Writable label strip on each'],
       specs: [['Fits', '4×6 and 5×7 prints'], ['Tested', 'PAT-tested'], ['Ships', 'In 2–3 days']],
-      pairs: ['FA-K01', 'FA-S01', 'FA-S03'] },
-    { id: 'FA-S01', name: 'Family Album Box', category: 'Storage', type: 'Product', price: 120,
+      pairs: ['starter-archival-kit', 'family-album-box', 'document-archive-box'] },
+    { id: 'family-album-box', slug: 'family-album-box', name: 'Family Album Box', category: 'Storage', type: 'Product', price: 120,
       images: ['album', 'hands'],
       blurb: 'A clamshell box with 10 interleaved album pages. Holds about 400 prints flat. No glue, no sticky pages.',
       includes: ['Clamshell box', '10 album pages', 'Interleaving tissue'],
       specs: [['Holds', 'About 400 prints'], ['Materials', 'Acid-free, lignin-free board'], ['Ships', 'In 2–3 days']],
-      pairs: ['FA-K03', 'FA-K01', 'FA-B01'] },
-    { id: 'FA-S02', name: 'Negative Binder', category: 'Storage', type: 'Product', price: 35, soldOut: true,
+      pairs: ['photo-sleeve-pack', 'starter-archival-kit', 'family-history-book'] },
+    { id: 'negative-binder', slug: 'negative-binder', name: 'Negative Binder', category: 'Storage', type: 'Product', price: 35, soldOut: true,
       images: ['negatives', 'catalog'],
       blurb: 'A ring binder with 25 archival negative pages, 7 strips each. Back in stock soon.',
       includes: ['D-ring binder', '25 negative pages (7 strips each)'],
       specs: [['Holds', 'About 175 strips'], ['Tested', 'PAT-tested']],
-      pairs: ['FA-P02', 'FA-K03', 'FA-S03'] },
-    { id: 'FA-S03', name: 'Document Archive Box', category: 'Storage', type: 'Product', price: 42, isNew: true,
+      pairs: ['slides-and-negatives-scan', 'photo-sleeve-pack', 'document-archive-box'] },
+    { id: 'document-archive-box', slug: 'document-archive-box', name: 'Document Archive Box', category: 'Storage', type: 'Product', price: 42, isNew: true,
       images: ['cabinet', 'letters'],
       blurb: 'A letter-size, lignin-free box with 25 folders. For the papers that matter: deeds, letters, report cards.',
       includes: ['Letter-size archive box', '25 acid-free folders', 'Label set'],
       specs: [['Size', 'Letter, 15×12×5 in'], ['Materials', 'Lignin-free board'], ['Ships', 'In 2–3 days']],
-      pairs: ['FA-D02', 'FA-K03', 'FA-K01'] },
-    { id: 'FA-P01', name: 'Shoebox Scan (up to 500 prints)', category: 'Scanning', type: 'Service', price: 149, featured: true,
+      pairs: ['letters-and-documents', 'photo-sleeve-pack', 'starter-archival-kit'] },
+    { id: 'shoebox-scan', slug: 'shoebox-scan', name: 'Shoebox Scan (up to 500 prints)', category: 'Scanning', type: 'Service', price: 149, featured: true,
       images: ['basket', 'scattered'],
       blurb: 'Send up to 500 prints in our prepaid box. We scan at 600 dpi, clean up dust and color, and send everything back.',
       includes: ['Prepaid, insured box both ways', '600 dpi scans (JPEG + TIFF)', 'Dust and color clean-up', 'Online gallery + USB drive'],
       specs: [['Turnaround', 'About 3 weeks'], ['Resolution', '600 dpi'], ['Originals', 'Returned, insured']],
-      pairs: ['FA-K01', 'FA-B01', 'FA-P02'] },
-    { id: 'FA-P02', name: 'Slides & Negatives Scan (up to 250)', category: 'Scanning', type: 'Service', price: 129,
+      pairs: ['starter-archival-kit', 'family-history-book', 'slides-and-negatives-scan'] },
+    { id: 'slides-and-negatives-scan', slug: 'slides-and-negatives-scan', name: 'Slides & Negatives Scan (up to 250)', category: 'Scanning', type: 'Service', price: 129,
       images: ['negatives', 'catalog'],
       blurb: 'Up to 250 slides or negative frames, scanned at 2400 dpi. Each one gets cleaned before it goes on the scanner.',
       includes: ['Prepaid, insured box both ways', '2400 dpi scans', 'Hand cleaning'],
       specs: [['Turnaround', 'About 3 weeks'], ['Formats', '35mm slides, 35mm + 120 negatives']],
-      pairs: ['FA-S02', 'FA-P01', 'FA-B01'] },
-    { id: 'FA-D01', name: 'Home Movie Transfer (per tape)', category: 'Digitizing', type: 'Service', price: 35,
+      pairs: ['negative-binder', 'shoebox-scan', 'family-history-book'] },
+    { id: 'home-movie-transfer', slug: 'home-movie-transfer', name: 'Home Movie Transfer (per tape)', category: 'Digitizing', type: 'Service', price: 35, unit: 'per tape',
       images: ['vhs', 'reels'],
       blurb: 'VHS, 8mm, or Super 8 to digital files. Priced per tape, up to 2 hours each. Your tapes come back with the files.',
       includes: ['MP4 files, one per tape', 'Basic color correction', 'Tapes returned'],
       specs: [['Formats', 'VHS, 8mm, Super 8'], ['Length', 'Up to 2 hours per tape'], ['Turnaround', 'About 3 weeks']],
-      pairs: ['FA-P01', 'FA-D02', 'FA-B01'] },
-    { id: 'FA-D02', name: 'Letters & Documents (up to 200 pages)', category: 'Digitizing', type: 'Service', price: 89,
+      pairs: ['shoebox-scan', 'letters-and-documents', 'family-history-book'] },
+    { id: 'letters-and-documents', slug: 'letters-and-documents', name: 'Letters & Documents (up to 200 pages)', category: 'Digitizing', type: 'Service', price: 89,
       images: ['letters', 'envelopes'],
       blurb: 'Up to 200 pages of letters, diaries, or documents, scanned flat and saved as searchable PDFs.',
       includes: ['Flatbed scans, 400 dpi', 'Searchable PDF + JPEG', 'Originals returned in archival folders'],
       specs: [['Turnaround', 'About 3 weeks'], ['Max size', '11×17 in']],
-      pairs: ['FA-S03', 'FA-B02', 'FA-P01'] },
-    { id: 'FA-B01', name: 'Family History Book (40 pages)', category: 'Family Books', type: 'Service', price: 95,
+      pairs: ['document-archive-box', 'recipe-archive-book', 'shoebox-scan'] },
+    { id: 'family-history-book', slug: 'family-history-book', name: 'Family History Book (40 pages)', category: 'Family Books', type: 'Service', price: 95,
       images: ['book', 'album'],
       blurb: 'A 40-page hardcover laid out by one of our archivists from your scans, with captions you write.',
       includes: ['Archivist-designed layout', 'Two rounds of edits', 'Hardcover, 10×10 in'],
       specs: [['Pages', '40'], ['Binding', 'Hardcover, lay-flat'], ['Turnaround', 'About 4 weeks after scans']],
-      pairs: ['FA-P01', 'FA-B02', 'FA-K02'] },
-    { id: 'FA-B02', name: 'Recipe Archive Book', category: 'Family Books', type: 'Service', price: 65,
+      pairs: ['shoebox-scan', 'recipe-archive-book', 'heirloom-gift-kit'] },
+    { id: 'recipe-archive-book', slug: 'recipe-archive-book', name: 'Recipe Archive Book', category: 'Family Books', type: 'Service', price: 65,
       images: ['ledger', 'letters'],
       blurb: 'Handwritten recipe cards, scanned and bound into a cookbook. Stains and notes in the margins included.',
       includes: ['Up to 60 recipe cards scanned', 'Typed transcription alongside each', 'Softcover, 8×10 in'],
       specs: [['Pages', 'Up to 64'], ['Turnaround', 'About 4 weeks']],
-      pairs: ['FA-B01', 'FA-D02', 'FA-K01'] }
+      pairs: ['family-history-book', 'letters-and-documents', 'starter-archival-kit'] }
   ];
   PRODUCTS.forEach(function (p, i) { p.order = i; });
 
   var CATEGORIES = ['Kits', 'Scanning', 'Storage', 'Digitizing', 'Family Books'];
 
-  function getProduct(id) {
-    id = String(id || '').toUpperCase();
-    for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].id === id) return PRODUCTS[i];
+  /* Items are keyed by readable slugs (used in URLs and storage). */
+  function getProduct(key) {
+    var sl = String(key || '').trim().toLowerCase();
+    for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].id === sl) return PRODUCTS[i];
     return null;
   }
+  function productUrl(p, hash) { return 'product.html?item=' + p.slug + (hash || ''); }
   function money(n) { return '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   function moneyShort(n) { return Number(n) % 1 === 0 ? '$' + Number(n).toLocaleString('en-US') : money(n); }
   function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
@@ -121,6 +123,7 @@
   window.FA.CATEGORIES = CATEGORIES;
   window.FA.SHIPPING_COPY = SHIPPING_COPY;
   window.FA.getProduct = getProduct;
+  window.FA.productUrl = productUrl;
   window.FA.money = money;
   window.FA.moneyShort = moneyShort;
   window.FA.slug = slug;

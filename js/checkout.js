@@ -72,7 +72,7 @@
       '<div><dt>Card</dt><dd>•••• ' + document.getElementById('card').value.replace(/\s/g, '').slice(-4) + '</dd></div>';
     FA.cart.clear();
     showView('confirm');
-    document.title = 'Order filed · The Family Archive';
+    document.title = 'Order received · The Family Archive';
     window.scrollTo(0, 0);
     document.getElementById('confirm-title').focus();
   }
@@ -126,9 +126,6 @@
     toggle.addEventListener('click', function () { setToggle(toggle.getAttribute('aria-expanded') !== 'true'); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { setToggle(false); toggle.focus(); } });
 
-    document.addEventListener('click', function (e) {
-      if (e.target.closest('[data-load-sample]')) { FA.cart.loadSample(); boot(); FA.announce('Sample order loaded.'); }
-    });
     document.addEventListener('fa:cart', function () {
       if (!document.getElementById('checkout-view').hidden) {
         if (!FA.cart.items().length) showView('empty'); else renderSummaries();

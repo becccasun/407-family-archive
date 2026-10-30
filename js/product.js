@@ -1,4 +1,4 @@
-/* Product detail, driven by ?id=FA-K01 */
+/* Product detail, driven by ?item=starter-archival-kit */
 (function () {
   var FA = window.FA;
 
@@ -10,7 +10,7 @@
     crumbs.insertAdjacentHTML('beforeend',
       '<li><a href="catalogue.html?cat=' + FA.slug(p.category) + '">' + FA.esc(p.category) + '</a></li>' +
       '<li><span aria-current="page">' + FA.esc(p.name) + '</span></li>');
-    document.title = p.name + ' (' + p.id + ') · The Family Archive';
+    document.title = p.name + ' · The Family Archive';
 
     var main = FA.IMAGES[p.images[0]];
     var thumbs = p.images.map(function (k, i) {
@@ -18,52 +18,43 @@
     }).join('');
 
     var startPrice = p.sizes ? p.sizes[1].price : p.price;
-    var sizes = '';
-    if (p.sizes) {
-      sizes = '<fieldset><legend class="label">Size: how much do you have?</legend><div class="options options--3" style="margin-top:8px">' +
-        p.sizes.map(function (s, i) {
-          return '<label class="option"><input type="radio" name="size" value="' + s.id + '"' + (i === 1 ? ' checked' : '') + '>' +
-            '<span class="option__box"><span class="option__dot" aria-hidden="true"></span><span class="option__name">' + s.label + '</span>' +
-            '<span class="option__detail">' + s.detail + '</span><span class="option__price">' + FA.moneyShort(s.price) + '</span></span></label>';
-        }).join('') + '</div></fieldset>';
-    }
+    var sizes = p.sizes ? FA.sizeOptions(p, 'size', p.sizes[1].id) : '';
 
-    var specs = '<dl class="spec-list">' + p.specs.map(function (s) { return '<dt>' + s[0] + '</dt><dd>' + FA.esc(s[1]) + '</dd>'; }).join('') +
-      '<dt>Catalog no.</dt><dd class="mono">' + p.id + '</dd></dl>';
+    var specs = '<dl class="spec-list">' + p.specs.map(function (s) { return '<dt>' + s[0] + '</dt><dd>' + FA.esc(s[1]) + '</dd>'; }).join('') + '</dl>';
 
     var acc = [
       ['inside', p.type === 'Service' ? 'What’s included' : 'What’s inside', '<ul>' + p.includes.map(function (x) { return '<li>' + FA.esc(x) + '</li>'; }).join('') + '</ul>', true],
       ['materials', p.type === 'Service' ? 'How it works' : 'Materials',
         p.type === 'Service'
-          ? '<p>We send you a prepaid, insured box. Pack your items using the inventory sheet, drop it at any UPS, and track it from your account. Originals come back filed and labeled.</p>'
+          ? '<p>We send you a prepaid, insured box. Pack your items using the inventory sheet, drop it at any UPS, and track it from your account. Originals come back sorted and labeled.</p>'
           : '<p>Everything that touches a photo is acid-free and lignin-free, and passes the Photographic Activity Test (PAT), the ISO 18916 standard for photo-safe storage.</p>', false],
       ['shipping', 'Shipping & returns', '<p>' + FA.SHIPPING_COPY + '</p>', false]
     ].map(function (a) {
       return '<div class="accordion__item"><h3 style="font-size:inherit"><button class="accordion__trigger" type="button" id="acc-' + a[0] + '-btn" aria-expanded="' + a[3] + '" aria-controls="acc-' + a[0] + '">' +
-        FA.esc(a[1]) + '<span class="sign" aria-hidden="true">+</span></button></h3>' +
+        FA.esc(a[1]) + FA.icon('chevron-down', 'icon icon--sm sign') + '</button></h3>' +
         '<div class="accordion__panel" id="acc-' + a[0] + '" role="region" aria-labelledby="acc-' + a[0] + '-btn"' + (a[3] ? '' : ' hidden') + '>' + a[2] + '</div></div>';
     }).join('');
 
     var buy = p.soldOut
-      ? '<button class="btn btn--disabled btn--block" type="button" disabled>Sold out</button><p class="muted">Back in stock soon. Try the <a href="product.html?id=FA-K03">Photo Sleeve Pack</a> in the meantime.</p>'
-      : '<div class="buy-row"><div class="field"><label for="qty">Quantity</label><div class="stepper"><button type="button" data-step="-1" aria-label="Decrease quantity">−</button>' +
-        '<input id="qty" type="number" inputmode="numeric" min="1" max="99" value="1"><button type="button" data-step="1" aria-label="Increase quantity">+</button></div></div>' +
-        '<button class="btn btn--primary" type="submit" id="add-btn"><span>Add to cart · <span data-line-price>' + FA.moneyShort(startPrice) + '</span></span></button></div>' +
-        '<p class="added-msg" id="added-msg" role="status"></p>';
+      ? '<div class="buy-row buy-row--soldout"><button class="btn btn--disabled" type="button" disabled>Sold out</button>' + FA.saveButton(p) + '</div>' +
+        '<p class="muted">Save it for later, or try the <a href="' + FA.productUrl(FA.getProduct('photo-sleeve-pack')) + '">Photo Sleeve Pack</a> in the meantime.</p>'
+      : '<div class="field"><label for="qty">Quantity</label>' + FA.stepper('qty') + '</div>' +
+        '<div class="buy-row"><button class="btn btn--primary" type="submit" id="add-btn"><span>Add to cart · <span data-line-price>' + FA.moneyShort(startPrice) + '</span></span></button>' +
+        FA.saveButton(p) + '</div>';
 
     root.innerHTML =
       '<div class="pdp">' +
         '<div class="gallery">' +
           '<figure class="figure"><div class="figure__frame">' + FA.img(p.images[0], { eager: true }).replace('<img ', '<img id="main-img" ') +
             (p.soldOut ? '<span class="stamp" aria-hidden="true">Sold out</span>' : '') + '</div>' +
-            '<figcaption class="fig"><span id="main-cap">' + figNo(0) + ': ' + main.caption + '</span><span>' + p.id + '</span></figcaption></figure>' +
+            '<figcaption class="fig"><span id="main-cap">' + figNo(0) + ': ' + main.caption + '</span><span>' + FA.esc(p.category) + '</span></figcaption></figure>' +
           (p.images.length > 1 ? '<ul class="thumbs" aria-label="Product images">' + thumbs + '</ul>' : '') +
         '</div>' +
         '<form class="pdp__info" id="buy-form" novalidate>' +
           '<div class="pdp__head"><h1>' + FA.esc(p.name) + '</h1>' +
-          '<p class="pdp__price"><span data-unit-price>' + FA.moneyShort(startPrice) + '</span>' + (p.id === 'FA-D01' ? '<small>per tape</small>' : '') + '</p>' +
-          '<div class="pdp__meta"><span class="catno">' + p.id + '</span><span class="tag">' + FA.esc(p.category) + '</span><span class="tag">' + p.type + '</span>' +
-            (p.isNew ? '<span class="tag tag--solid">New</span>' : '') + (p.soldOut ? '<span class="tag" style="color:var(--red-600);border-color:var(--red-600)">Sold out</span>' : '') + '</div></div>' +
+          '<p class="pdp__price"><span data-unit-price>' + FA.moneyShort(startPrice) + '</span>' + (p.unit ? '<small>' + p.unit + '</small>' : '') + '</p>' +
+          '<div class="pdp__meta"><span class="tag">' + FA.esc(p.category) + '</span><span class="tag">' + p.type + '</span>' +
+            (p.isNew ? '<span class="tag tag--solid">New</span>' : '') + (p.soldOut ? '<span class="tag tag--alert">Sold out</span>' : '') + '</div></div>' +
           '<p class="lede">' + FA.esc(p.blurb) + '</p>' +
           sizes + buy + specs +
           '<div class="accordion" id="details">' + acc + '</div>' +
@@ -109,17 +100,15 @@
     form.addEventListener('change', function (e) { if (e.target === qty) qty.value = q(); update(); });
     qty.addEventListener('input', update);
     form.querySelectorAll('[data-step]').forEach(function (b) {
-      b.addEventListener('click', function () { qty.value = q() + (+b.getAttribute('data-step')); qty.value = q(); update(); });
+      b.addEventListener('click', function () { qty.value = q() + (+b.getAttribute('data-step')); qty.value = q(); update(); if (b.disabled) qty.focus(); });
     });
     function add() {
       var size = p.sizes ? form.querySelector('input[name="size"]:checked').value : null;
-      FA.cart.add(p.id, q(), size);
-      var label = p.sizes ? p.sizes.filter(function (s) { return s.id === size; })[0].label + ' ' : '';
-      document.getElementById('added-msg').innerHTML = 'Added ' + q() + ' × ' + FA.esc(label + p.name) + ' to your cart. <a href="cart.html">View cart (' + FA.cart.count() + ')</a>';
+      FA.addToCart(p, q(), size);
     }
     form.addEventListener('submit', function (e) { e.preventDefault(); add(); });
     var mobileAdd = document.getElementById('mobile-add');
-    mobileAdd.addEventListener('click', function () { add(); FA.announce('Added to cart.'); document.getElementById('added-msg').scrollIntoView({ block: 'center' }); });
+    mobileAdd.addEventListener('click', add);
 
     // mobile sticky bar shows once the main Add button scrolls out of view
     var bar = document.getElementById('mobile-buy'), addBtn = document.getElementById('add-btn');
@@ -136,13 +125,14 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var id = new URLSearchParams(location.search).get('id') || 'FA-K01';
+    var params = new URLSearchParams(location.search);
+    var id = params.get('item') || 'starter-archival-kit';
     var p = FA.getProduct(id);
     if (!p) {
-      document.title = 'Misfiled · The Family Archive';
+      document.title = 'Not found · The Family Archive';
       document.getElementById('pdp-root').innerHTML =
-        '<div class="page-head"><h1>That catalog number is misfiled.</h1>' +
-        '<p class="lede" style="margin:16px 0 24px">We don’t have an item filed as “' + FA.esc(id) + '”. Numbers look like FA-K01.</p>' +
+        '<div class="page-head"><h1>We couldn’t find that item.</h1>' +
+        '<p class="lede" style="margin:16px 0 24px">It may have moved or sold out for good. Try the catalogue instead.</p>' +
         '<div class="btn-row"><a class="btn btn--primary" href="catalogue.html">Browse the catalogue</a><a class="btn btn--secondary" href="index.html">Back to home</a></div></div>';
       return;
     }
