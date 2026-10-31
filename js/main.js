@@ -355,11 +355,70 @@
     }
   });
 
+  /* ---------- catalogue dropdown (desktop) ---------- */
+  function initNavMenu() {
+    var menu = document.querySelector('[data-nav-menu]');
+    if (!menu) return;
+    var btn = menu.querySelector('.nav-menu__btn');
+    var links = function () { return Array.prototype.slice.call(menu.querySelectorAll('.nav-menu__panel a')); };
+    var hoverTimer, pinned = false, canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    function isOpen() { return menu.classList.contains('is-open'); }
+    function open(focusFirst) {
+      window.clearTimeout(hoverTimer);
+      menu.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      if (focusFirst) links()[0].focus();
+    }
+    function close(returnFocus) {
+      window.clearTimeout(hoverTimer);
+      pinned = false;
+      if (!isOpen()) return;
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (returnFocus) btn.focus();
+    }
+    btn.addEventListener('click', function () {
+      if (isOpen() && !pinned && canHover && menu.matches(':hover')) { pinned = true; return; }
+      if (isOpen()) close(false); else { open(false); pinned = true; }
+    });
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); e.stopPropagation(); open(true); pinned = true; }
+    });
+    menu.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) { e.preventDefault(); close(true); return; }
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      var l = links(), i = l.indexOf(document.activeElement);
+      if (i < 0) return;
+      e.preventDefault();
+      l[(i + (e.key === 'ArrowDown' ? 1 : -1) + l.length) % l.length].focus();
+    });
+    menu.addEventListener('focusout', function (e) { if (!menu.contains(e.relatedTarget)) close(false); });
+    document.addEventListener('pointerdown', function (e) { if (isOpen() && !menu.contains(e.target)) close(false); });
+    if (canHover) {
+      menu.addEventListener('mouseenter', function () {
+        window.clearTimeout(hoverTimer);
+        if (!isOpen()) hoverTimer = window.setTimeout(function () { open(false); }, 120);
+      });
+      menu.addEventListener('mouseleave', function () {
+        window.clearTimeout(hoverTimer);
+        if (isOpen() && !pinned) hoverTimer = window.setTimeout(function () { close(false); }, 250);
+      });
+    }
+    window.addEventListener('resize', function () { if (window.innerWidth < 900) close(false); });
+  }
+
   /* ---------- mobile nav drawer ---------- */
   function initDrawer() {
     var toggle = document.querySelector('.nav-toggle');
     var drawer = document.getElementById('nav-drawer');
     if (!toggle || !drawer) return;
+    var disc = drawer.querySelector('.drawer-disc__btn');
+    if (disc) disc.addEventListener('click', function () {
+      var panel = document.getElementById(disc.getAttribute('aria-controls'));
+      var expanded = disc.getAttribute('aria-expanded') === 'true';
+      disc.setAttribute('aria-expanded', String(!expanded));
+      panel.hidden = expanded;
+    });
     function open() {
       drawer.hidden = false;
       toggle.setAttribute('aria-expanded', 'true');
@@ -381,7 +440,7 @@
     });
     drawer.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab') return;
-      var f = drawer.querySelectorAll('a, button, input');
+      var f = Array.prototype.filter.call(drawer.querySelectorAll('a, button, input'), function (el) { return el.offsetParent !== null; });
       var first = f[0], last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); toggle.focus(); }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); toggle.focus(); }
@@ -423,6 +482,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     FA.updateCounts();
+    initNavMenu();
     initDrawer();
     initNewsletter();
     FA.initAccordions();
