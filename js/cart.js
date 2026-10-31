@@ -40,7 +40,7 @@
       '<aside class="summary" id="cart-summary" aria-labelledby="sum-title"></aside></div>';
     FA.renderSummary(document.getElementById('cart-summary'), {
       prefix: 'sum', freeLabel: 'Free (prepaid box)',
-      cta: '<a class="btn btn--primary btn--block" href="checkout.html">Checkout' + FA.icon('arrow-right') + '</a><p class="hint">Shipping is free both ways on every order. Tax is estimated at 6% (Michigan).</p>'
+      cta: '<a class="btn btn--primary btn--block" href="checkout.html">Checkout' + FA.icon('arrow-right') + '</a><p class="hint">Standard shipping is free both ways. Express is an option at checkout.</p>'
     });
   }
 

@@ -2,8 +2,6 @@
 (function () {
   var FA = window.FA;
 
-  function figNo(i) { return 'FIG. 0' + (i + 1); }
-
   function render(p) {
     var root = document.getElementById('pdp-root');
     var crumbs = document.getElementById('crumbs');
@@ -12,7 +10,6 @@
       '<li><span aria-current="page">' + FA.esc(p.name) + '</span></li>');
     document.title = p.name + ' · The Family Archive';
 
-    var main = FA.IMAGES[p.images[0]];
     var thumbs = p.images.map(function (k, i) {
       return '<li><button class="thumb" type="button" data-img="' + k + '" data-i="' + i + '" aria-pressed="' + (i === 0) + '" aria-label="Show image ' + (i + 1) + ' of ' + p.images.length + '">' + FA.img(k, { decorative: true }) + '</button></li>';
     }).join('');
@@ -20,14 +17,14 @@
     var startPrice = p.sizes ? p.sizes[1].price : p.price;
     var sizes = p.sizes ? FA.sizeOptions(p, 'size', p.sizes[1].id) : '';
 
-    var specs = '<dl class="spec-list">' + p.specs.map(function (s) { return '<dt>' + s[0] + '</dt><dd>' + FA.esc(s[1]) + '</dd>'; }).join('') + '</dl>';
+    var specs = p.specs.length ? '<dl class="spec-list">' + p.specs.map(function (s) { return '<dt>' + s[0] + '</dt><dd>' + FA.esc(s[1]) + '</dd>'; }).join('') + '</dl>' : '';
 
     var acc = [
       ['inside', p.type === 'Service' ? 'What’s included' : 'What’s inside', '<ul>' + p.includes.map(function (x) { return '<li>' + FA.esc(x) + '</li>'; }).join('') + '</ul>', true],
       ['materials', p.type === 'Service' ? 'How it works' : 'Materials',
         p.type === 'Service'
-          ? '<p>We send you a prepaid, insured box. Pack your items using the inventory sheet, drop it at any UPS, and track it from your account. Originals come back sorted and labeled.</p>'
-          : '<p>Everything that touches a photo is acid-free and lignin-free, and passes the Photographic Activity Test (PAT), the ISO 18916 standard for photo-safe storage.</p>', false],
+          ? '<p>We send you a prepaid, insured box. Pack your items, drop the box at any UPS, and we&rsquo;ll email you tracking. Your originals come back sorted and labeled.</p>'
+          : '<p>Everything that touches a photo is acid-free and photo-safe, so it won&rsquo;t yellow, stick to, or damage your photos over time.</p>', false],
       ['shipping', 'Shipping & returns', '<p>' + FA.SHIPPING_COPY + '</p>', false]
     ].map(function (a) {
       return '<div class="accordion__item"><h3 style="font-size:inherit"><button class="accordion__trigger" type="button" id="acc-' + a[0] + '-btn" aria-expanded="' + a[3] + '" aria-controls="acc-' + a[0] + '">' +
@@ -37,7 +34,7 @@
 
     var buy = p.soldOut
       ? '<div class="buy-row buy-row--soldout"><button class="btn btn--disabled" type="button" disabled>Sold out</button>' + FA.saveButton(p) + '</div>' +
-        '<p class="muted">Save it for later, or try the <a href="' + FA.productUrl(FA.getProduct('photo-sleeve-pack')) + '">Photo Sleeve Pack</a> in the meantime.</p>'
+        '<p class="muted">In the meantime, the <a href="' + FA.productUrl(FA.getProduct('photo-sleeve-pack')) + '">Photo Sleeve Pack</a> is in stock.</p>'
       : '<div class="field"><label for="qty">Quantity</label>' + FA.stepper('qty') + '</div>' +
         '<div class="buy-row"><button class="btn btn--primary" type="submit" id="add-btn"><span>Add to cart · <span data-line-price>' + FA.moneyShort(startPrice) + '</span></span></button>' +
         FA.saveButton(p) + '</div>';
@@ -45,16 +42,15 @@
     root.innerHTML =
       '<div class="pdp">' +
         '<div class="gallery">' +
-          '<figure class="figure"><div class="figure__frame">' + FA.img(p.images[0], { eager: true }).replace('<img ', '<img id="main-img" ') +
-            (p.soldOut ? '<span class="stamp" aria-hidden="true">Sold out</span>' : '') + '</div>' +
-            '<figcaption class="fig"><span id="main-cap">' + figNo(0) + ': ' + main.caption + '</span><span>' + FA.esc(p.category) + '</span></figcaption></figure>' +
+          '<div class="figure"><div class="figure__frame">' + FA.img(p.images[0], { eager: true }).replace('<img ', '<img id="main-img" ') +
+            (p.soldOut ? '<span class="stamp" aria-hidden="true">Sold out</span>' : '') + '</div></div>' +
           (p.images.length > 1 ? '<ul class="thumbs" aria-label="Product images">' + thumbs + '</ul>' : '') +
         '</div>' +
         '<form class="pdp__info" id="buy-form" novalidate>' +
           '<div class="pdp__head"><h1>' + FA.esc(p.name) + '</h1>' +
           '<p class="pdp__price"><span data-unit-price>' + FA.moneyShort(startPrice) + '</span>' + (p.unit ? '<small>' + p.unit + '</small>' : '') + '</p>' +
-          '<div class="pdp__meta"><span class="tag">' + FA.esc(p.category) + '</span><span class="tag">' + p.type + '</span>' +
-            (p.isNew ? '<span class="tag tag--solid">New</span>' : '') + (p.soldOut ? '<span class="tag tag--alert">Sold out</span>' : '') + '</div></div>' +
+          '<div class="pdp__meta"><span class="tag">' + FA.esc(p.category) + '</span>' +
+            (p.isNew ? '<span class="tag tag--solid">New</span>' : '') + '</div></div>' +
           '<p class="lede">' + FA.esc(p.blurb) + '</p>' +
           sizes + buy + specs +
           '<div class="accordion" id="details">' + acc + '</div>' +
@@ -75,10 +71,9 @@
     // gallery
     document.querySelectorAll('.thumb').forEach(function (t) {
       t.addEventListener('click', function () {
-        var k = t.getAttribute('data-img'), im = FA.IMAGES[k], i = +t.getAttribute('data-i');
+        var k = t.getAttribute('data-img'), im = FA.IMAGES[k];
         var main = document.getElementById('main-img');
         main.src = FA.url(im.url); main.alt = im.alt; main.width = im.w; main.height = im.h;
-        document.getElementById('main-cap').textContent = figNo(i) + ': ' + im.caption;
         document.querySelectorAll('.thumb').forEach(function (x) { x.setAttribute('aria-pressed', String(x === t)); });
       });
     });

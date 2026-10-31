@@ -13,6 +13,6 @@ Plain HTML, CSS and vanilla JS, no build step. The cart and saved items are kept
 | `product.html?item=starter-archival-kit` | Product detail by readable slug. Size option cards, qty stepper, Save, accordion |
 | `cart.html` | Qty edit, remove, save for later, promo code (`ARCHIVE10`), totals, and a Saved for later list (`cart.html#saved`) |
 | `checkout.html` | One-page checkout (contact, shipping, payment) with inline validation, then confirmation |
-| `404.html` | "404: Misfiled." |
+| `404.html` | Page not found, with search |
 
 Photos: Unsplash (Unsplash License), shown in grayscale via CSS. Photographers and source links are in [`assets/img/credits.json`](assets/img/credits.json).

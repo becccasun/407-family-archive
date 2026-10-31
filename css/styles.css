@@ -116,7 +116,7 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 .section--rule { border-top: 1px solid var(--border); }
 
 /* ---------- type utilities ---------- */
-.mono, .catno, .fig, .price, .tag {
+.mono, .catno, .price, .tag {
   font-family: var(--font-mono);
   font-feature-settings: "zero" 0;
 }
@@ -131,18 +131,13 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 }
 .section-head p { max-width: 34em; }
 
-/* ---------- figures (scanned-document labels) ---------- */
-.figure { margin: 0; }
+/* ---------- image frames ---------- */
 .figure__frame {
   background: var(--grey-200); border: 1px solid var(--border); overflow: hidden; position: relative;
 }
 .figure__frame img, .card__media img, .thumb img, .line__img img {
   width: 100%; height: 100%; object-fit: cover;
   filter: grayscale(1) contrast(1.05);
-}
-.fig {
-  display: flex; justify-content: space-between; gap: 12px;
-  margin-top: 8px; font-size: var(--fs-mono-sm); letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted);
 }
 
 /* ---------- buttons ---------- */
@@ -526,7 +521,6 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 }
 .folder-tab:hover { background: var(--paper-200); }
 .folder-tab[aria-pressed="true"] { background: var(--bg-card); border-color: var(--border); border-bottom-color: var(--bg-card); }
-.folder-tab .n { color: var(--text-muted); margin-left: 6px; }
 @media (min-width: 900px) { .folder-tabs { margin: 0; padding: 0; } }
 
 .shop { display: grid; gap: 24px; padding: 24px 0 var(--section-y); }
@@ -748,7 +742,6 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 .stepper button { display: inline-flex; align-items: center; justify-content: center; }
 .stepper button .icon { width: 18px; height: 18px; }
 .chip .icon { width: 14px; height: 14px; }
-.tag--alert { color: var(--red-600); border-color: var(--red-600); }
 body.modal-open { overflow: hidden; }
 
 /* tooltips for icon-only buttons: below by default */

@@ -165,7 +165,7 @@
       '<input id="' + id + '" type="number" inputmode="numeric" min="1" max="99" value="1"><button type="button" data-step="1" aria-label="Increase quantity">' + FA.icon('plus') + '</button></div>';
   };
 
-  /* Index-card product card */
+  /* Product card */
   FA.card = function (p, opts) {
     opts = opts || {};
     var href = FA.url(FA.productUrl(p));
@@ -174,7 +174,7 @@
       ? '<button class="btn btn--disabled btn--sm card__add" type="button" disabled>Sold out<span class="sr-only">: ' + FA.esc(p.name) + '</span></button>'
       : '<button class="btn btn--primary btn--sm card__add" type="button" data-add="' + p.id + '"' + (p.sizes ? ' aria-haspopup="dialog"' : '') + '>' +
         '<span class="card__add-label">Add to cart</span><span class="sr-only">: ' + FA.esc(p.name) + (p.sizes ? ', choose a size' : '') + '</span></button>';
-    var badge = p.isNew ? '<span class="tag tag--solid">New</span>' : (p.featured ? '<span class="tag">Featured</span>' : '');
+    var badge = p.isNew ? '<span class="tag tag--solid">New</span>' : '';
     var H = opts.heading || 'h3';
     return '<article class="card' + (p.soldOut ? ' card--soldout' : '') + '">' +
       '<div class="card__media">' + FA.img(p.images[0]) + (badge ? '<span class="card__badge">' + badge + '</span>' : '') + (p.soldOut ? '<span class="stamp" aria-hidden="true">Sold out</span>' : '') +
@@ -277,7 +277,7 @@
           '<h2 id="qv-title" tabindex="-1">' + FA.esc(p.name) + '</h2>' +
           '<p class="pdp__price"><span data-qv-price>' + FA.moneyShort(unit(startSize)) + '</span>' + (p.unit ? '<small>' + p.unit + '</small>' : '') +
             (p.soldOut ? '<span class="sr-only"> (sold out)</span>' : '') + '</p>' +
-          '<div class="pdp__meta"><span class="tag">' + FA.esc(p.category) + '</span>' + (p.soldOut ? '<span class="tag tag--alert">Sold out</span>' : '') + '</div>' +
+          '<div class="pdp__meta"><span class="tag">' + FA.esc(p.category) + '</span>' + '</div>' +
           '<p>' + FA.esc(p.blurb) + '</p>' +
           (p.sizes && !p.soldOut ? FA.sizeOptions(p, 'qv-size', startSize) : '') +
           (p.soldOut ? '' : '<div class="field"><label for="qv-qty">Quantity</label>' + FA.stepper('qv-qty') + '</div>') +

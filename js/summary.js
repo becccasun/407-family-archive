@@ -18,7 +18,7 @@
     var promo = t.promo
       ? '<p class="promo-ok"><span>Code <strong class="mono">' + t.promo + '</strong> applied</span><button class="btn btn--tertiary" type="button" data-remove-promo>Remove</button></p>'
       : '<form class="promo" data-promo novalidate><label class="label" for="' + pre + '-promo">Promo code</label>' +
-        '<div class="promo-row" style="margin-top:6px"><input class="input" id="' + pre + '-promo" name="promo" autocomplete="off" placeholder="e.g. ARCHIVE10" aria-describedby="' + pre + '-promo-error">' +
+        '<div class="promo-row" style="margin-top:6px"><input class="input" id="' + pre + '-promo" name="promo" autocomplete="off" aria-describedby="' + pre + '-promo-error">' +
         '<button class="btn btn--secondary" type="submit">Apply</button></div><p class="field-error" id="' + pre + '-promo-error" aria-live="polite"></p></form>';
 
     el.innerHTML =
@@ -37,7 +37,7 @@
       e.preventDefault();
       var input = f.querySelector('input'), err = f.querySelector('.field-error');
       if (!input.value.trim()) { err.textContent = 'Enter a code first.'; input.setAttribute('aria-invalid', 'true'); input.focus(); return; }
-      if (!FA.cart.applyPromo(input.value)) { err.textContent = 'That code isn’t on file. Check the spelling and try again.'; input.setAttribute('aria-invalid', 'true'); input.focus(); return; }
+      if (!FA.cart.applyPromo(input.value)) { err.textContent = 'That code didn’t work. Check the spelling and try again.'; input.setAttribute('aria-invalid', 'true'); input.focus(); return; }
       FA.announce('Promo code applied.');
     });
     var r = el.querySelector('[data-remove-promo]');

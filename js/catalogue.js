@@ -66,7 +66,7 @@
     document.getElementById('q').value = state.q;
   }
 
-  function setCount(sel, n) { var el = document.querySelector('[data-count="' + sel + '"]'); if (el) el.textContent = /^(tab:|all$)/.test(sel) ? '(' + n + ')' : n; }
+  function setCount(sel, n) { var el = document.querySelector('[data-count="' + sel + '"]'); if (el) el.textContent = n; }
 
   function render() {
     var list = sorted(FA.PRODUCTS.filter(function (p) { return matches(p); }));
@@ -80,9 +80,7 @@
     // facet counts (respecting the other active filters)
     Object.keys(catName).forEach(function (s) {
       setCount('cat:' + s, FA.PRODUCTS.filter(function (p) { return FA.slug(p.category) === s && matches(p, 'cat'); }).length);
-      setCount('tab:' + s, FA.PRODUCTS.filter(function (p) { return FA.slug(p.category) === s; }).length);
     });
-    setCount('all', FA.PRODUCTS.length);
     ['product', 'service'].forEach(function (t) { setCount('type:' + t, FA.PRODUCTS.filter(function (p) { return p.type.toLowerCase() === t && matches(p, 'type'); }).length); });
     Object.keys(PRICE).forEach(function (k) { setCount('price:' + k, FA.PRODUCTS.filter(function (p) { return PRICE[k].test(p) && matches(p, 'price'); }).length); });
 

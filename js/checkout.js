@@ -67,7 +67,7 @@
     document.getElementById('confirm-total').textContent = FA.money(t.total);
     document.getElementById('confirm-ship').innerHTML =
       '<div><dt>Ship to</dt><dd style="font-family:var(--font-serif)">' + FA.esc(document.getElementById('name').value.trim()) + ', ' + FA.esc(document.getElementById('city').value.trim()) + ', ' + FA.esc(document.getElementById('state').value) + '</dd></div>' +
-      '<div><dt>Method</dt><dd>' + (express ? 'Express, 2 days' : 'Standard, 5–7 days') + '</dd></div>' +
+      '<div><dt>Shipping</dt><dd>' + (express ? 'Express, 2 days' : 'Standard, 5–7 days') + '</dd></div>' +
       '<div><dt>Items</dt><dd>' + FA.cart.count() + '</dd></div>' +
       '<div><dt>Card</dt><dd>•••• ' + document.getElementById('card').value.replace(/\s/g, '').slice(-4) + '</dd></div>';
     FA.cart.clear();
